@@ -5,5 +5,5 @@ from datetime import datetime
 
 def index(request):
     hosts = Host.objects.order_by('-squad__priority', 'squad__name', 'name')
-    context = { "hosts": hosts, "aaa": datetime.now() }
+    context = { "hosts": hosts, "date": datetime.now() }
     return render(request, "monitoring/index.html", context)
