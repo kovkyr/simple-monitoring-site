@@ -41,7 +41,7 @@
             <br>
             <div class="container">
                 {% for squad in squads %}
-                    <h3>{{ squad.name }} ({{ squad.priority }})</h3>
+                    <h3>{{ squad.name }} <small>(Priority: {{ squad.priority }})</small></h3>
                     <hr>
                     <div class="row row-cols-auto">
                         {% for device in squad.device_set.all %}
