@@ -134,7 +134,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONJOBS = [
-    ('* * * * *', 'monitoring.cron.check_hosts')
+    ('* * * * *', 'monitoring.cron.check_hosts', '>> /tmp/logs-django-crontab.log')
 ]
 
 CRONTAB_LOCK_JOBS = True

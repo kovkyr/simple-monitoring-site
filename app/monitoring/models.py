@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 
 class Squad(models.Model):
     name = models.CharField(max_length=200)
@@ -15,6 +16,6 @@ class Host(models.Model):
     hostname = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=200, blank=True)
     is_online = models.BooleanField(default=False, blank=True)
-    check_date = models.DateTimeField(default=datetime.now, blank=True)
+    check_date = models.DateTimeField(default=timezone.now, blank=True)
     def __str__(self):
         return self.name
