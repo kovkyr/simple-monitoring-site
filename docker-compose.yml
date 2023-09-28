@@ -13,7 +13,18 @@ services:
             - ./.env
         volumes:
             - "./app/:/app"
-        command: python3 /app/manage.py runserver 0.0.0.0:80
+    cron:
+        build:
+            context: ./
+            dockerfile: ./.docker/build-python/Dockerfile
+        restart: always
+        tty: true
+        env_file:
+            - ./.env
+        volumes:
+            - "./app/:/app"
+            - ".docker/conf/cron/environment:/etc/environment"
+        command: cron -f
     psql:
         image: postgres
         restart: always

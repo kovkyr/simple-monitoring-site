@@ -19,6 +19,7 @@ help:
 	@echo "  django-migrate               Migrate database to last release"
 	@echo ""
 	@echo "  shell-python                 Enter python container"
+	@echo "  shell-cron                   Enter cron container"
 	@echo "  shell-psql                   Enter psql container"
 	@echo ""
 
@@ -58,6 +59,9 @@ psql-restore:
 
 shell-python:
 	@docker compose exec -it python /bin/bash
+
+shell-cron:
+	@docker compose exec -it cron /bin/bash
 
 shell-psql:
 	@docker compose exec -it psql /bin/bash
