@@ -4,14 +4,12 @@ Docker with Django 4.2.5 and PostgreSQL 12
 
 ### Installation
 
-* Update Django secret key in `.env` file:
+* Update Django secret key, database password, superadmin password and time zone in `.env` file:
 ```
 SECRET_KEY=secret_key
-```
-
-* Update database password in `.env` file:
-```
 DB_PASSWORD=123456
+SUPERUSER_PASSWORD=admin
+TIME_ZONE=Asia/Yekaterinburg
 ```
 
 * Create and run app:
@@ -19,9 +17,19 @@ DB_PASSWORD=123456
 make docker-create
 ```
 
+* Restart app:
+```
+make docker-restart
+```
+
 * Get help:
 ```
 make help
 ```
 
-Go to http://localhost:3000/
+Go to http://localhost:3000/admin and create your squads with devices
+
+Go to http://localhost:3000/ to view devices ordered by squads
+
+Go to http://localhost:3000/table to view devices in table format
+
