@@ -22,43 +22,43 @@
             <br>
             <div class="row">
                 <div class="col-sm-12">
-                    {% if hosts %}
+                    {% if devices %}
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Line</th>
                                     <th>Squad (name)</th>
                                     <th>Squad (priority)</th>
-                                    <th>Host (name)</th>
-                                    <th>Host (ip)</th>
-                                    <th>Host (mac)</th>
-                                    <th>Host (hostname)</th>
-                                    <th>Host (availability)</th>
-                                    <th>Host (check date)</th>
+                                    <th>Device (name)</th>
+                                    <th>Device (ip)</th>
+                                    <th>Device (mac)</th>
+                                    <th>Device (hostname)</th>
+                                    <th>Device (availability)</th>
+                                    <th>Device (check date)</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for host in hosts %}
+                                {% for device in devices %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
-                                        <td>{{ host.squad.name }}</td>
-                                        <td>{{ host.squad.priority }}</td>
-                                        <td>{{ host.name }}</td>
-                                        <td>{{ host.ip }}</td>
-                                        <td>{{ host.mac }}</td>
-                                        <td>{{ host.hostname }}</td>
-                                        {% if host.is_online %}
+                                        <td>{{ device.squad.name }}</td>
+                                        <td>{{ device.squad.priority }}</td>
+                                        <td>{{ device.name }}</td>
+                                        <td>{{ device.ip }}</td>
+                                        <td>{{ device.mac }}</td>
+                                        <td>{{ device.hostname }}</td>
+                                        {% if device.is_online %}
                                             <td>✅</td>
                                         {% else %}
                                             <td>⛔</td>
                                         {% endif %}
-                                        <td>{{ host.check_date }}</td>
+                                        <td>{{ device.check_date }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     {% else %}
-                        <p>No hosts are available.</p>
+                        <p>No devices are available.</p>
                     {% endif %}
                 </div>
             </div>

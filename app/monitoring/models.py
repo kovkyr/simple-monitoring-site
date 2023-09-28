@@ -8,7 +8,7 @@ class Squad(models.Model):
     def __str__(self):
         return self.name
 
-class Host(models.Model):
+class Device(models.Model):
     squad = models.ForeignKey(Squad, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     ip = models.CharField(max_length=200)

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Host, Squad
+from .models import Device, Squad
 
 class HostInline(admin.TabularInline ):
-    model = Host
+    model = Device
     extra = 0
     fieldsets = [
         (None, {"fields": ["name"]}),
