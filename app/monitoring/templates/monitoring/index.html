@@ -60,18 +60,18 @@
                                         Hostname: {{ device.hostname }}<br>
                                         Availability:
                                         {% if device.is_online %}
-                                            ✅ (Online)
+                                            ✅ Online
                                         {% else %}
-                                            ⛔ (Offline)
+                                            ⛔ Offline
                                         {% endif %}<br>
                                         Check date: {{ device.check_date|date:'Y.m.d H:i' }}
                                     "						
                                     style="border: 1px solid green; padding: 5px;">
                                         {{ device.name }}<br>
                                         {% if device.is_online %}
-                                            ✅ (Online)
+                                            ✅ Online
                                         {% else %}
-                                            ⛔ (Offline)
+                                            ⛔ Offline
                                         {% endif %}<br>
                                         <div class="h6">
                                             <small>

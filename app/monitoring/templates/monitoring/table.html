@@ -63,9 +63,9 @@
                                         <td>{{ device.mac }}</td>
                                         <td>{{ device.hostname }}</td>
                                         {% if device.is_online %}
-                                            <td>✅</td>
+                                            <td>✅ Online</td>
                                         {% else %}
-                                            <td>⛔</td>
+                                            <td>⛔ Offline</td>
                                         {% endif %}
                                         <td>{{ device.check_date }}</td>
                                     </tr>
