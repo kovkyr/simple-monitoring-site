@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Yekaterinburg'
+TIME_ZONE = os.environ.get("TIME_ZONE")
 
 USE_I18N = True
 
@@ -134,7 +134,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONJOBS = [
-    ('* * * * *', 'monitoring.cron.check_hosts', '>> /tmp/logs-django-crontab.log')
+    ('* * * * *', 'monitoring.cron.check_devices', '>> /tmp/logs-django-crontab.log')
 ]
 
 CRONTAB_LOCK_JOBS = True
