@@ -5,7 +5,8 @@ from datetime import datetime
 
 def index(request):
     devices = Device.objects.order_by('-squad__priority', 'squad__name', 'name')
-    context = { "devices": devices, "date": datetime.now() }
+    squads = Squad.objects.all()
+    context = { "devices": devices, "squads": squads,  "date": datetime.now() }
     return render(request, "monitoring/index.html", context)
 
 def table(request):

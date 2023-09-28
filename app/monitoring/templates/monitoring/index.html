@@ -16,9 +16,8 @@
             if(htmlElement.getAttribute("data-bs-theme") === 'auto') {
                 function updateTheme() {
                     document.querySelector("html").setAttribute("data-bs-theme",
-                        window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+                    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
                 }
-
                 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
                 updateTheme()
             }
@@ -31,52 +30,35 @@
             <br>
             <div class="row">
                 <div class="col-sm-12">
-                        <h3>Simple monitoring</h3>
+                    <h1>Simple monitoring</h1>
+                    <a href="{% url 'table' %}">To table view >>></a>
                 </div>
             </div>
             <br>
-            <div class="row">
-                <div class="col-sm-12">
-                    {% if devices %}
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Line</th>
-                                    <th>Squad (name)</th>
-                                    <th>Squad (priority)</th>
-                                    <th>Device (name)</th>
-                                    <th>Device (ip)</th>
-                                    <th>Device (mac)</th>
-                                    <th>Device (hostname)</th>
-                                    <th>Device (availability)</th>
-                                    <th>Device (check date)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for device in devices %}
-                                    <tr>
-                                        <td>{{ forloop.counter }}</td>
-                                        <td>{{ device.squad.name }}</td>
-                                        <td>{{ device.squad.priority }}</td>
-                                        <td>{{ device.name }}</td>
-                                        <td>{{ device.ip }}</td>
-                                        <td>{{ device.mac }}</td>
-                                        <td>{{ device.hostname }}</td>
-                                        {% if device.is_online %}
-                                            <td>✅</td>
-                                        {% else %}
-                                            <td>⛔</td>
-                                        {% endif %}
-                                        <td>{{ device.check_date }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p>No devices are available.</p>
-                    {% endif %}
+            {% for squad in squads %}
+                <div class="row">
+                    <h3>{{ squad.name }} ({{ squad.priority }})</h3>
+                    <hr>
+                    {% for device in squad.device_set.all %}
+                    <div class="col-sm-6" style="border: 1px solid black;">
+                        name: {{ device.name }}<br>
+                        ip: {{ device.ip }}<br>
+                        mac: {{ device.mac }}<br>
+                        hostname: {{ device.hostname }}<br>
+                        availability:
+                        {% if device.is_online %}
+                            ✅<br>
+                        {% else %}
+                            ⛔<br>
+                        {% endif %}
+                        check date: {{ device.check_date }}</br>
+                    </div>
+                    {% endfor %}
                 </div>
-            </div>
+                <br>
+            {% endfor %}
+            <br>
+            <br>
             <br>
             <div class="row">
                 <div class="col-sm-4 offset-sm-4">
