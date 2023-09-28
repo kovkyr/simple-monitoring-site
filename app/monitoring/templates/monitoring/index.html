@@ -46,7 +46,7 @@
                     <hr>
                     {% if squad.device_set.all %}
                     <div class="row row-cols-auto">
-                        {% for device in squad.device_set.all %}
+                        {% for device in squad.device_set.all|dictsort:"name" %}
                             <div class="col text-center" style="padding-bottom: 1em;">
                                 <div
                                     type="button"
