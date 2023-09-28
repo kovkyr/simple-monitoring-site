@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+<head>
+    <!-- online -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- offline -->
+    <link href="{% static 'monitoring/bootstrap.min.css' %}" rel="stylesheet">
+
+    <meta charset="utf-8">
+
+    <script>
+        ;(function () {
+            const htmlElement = document.querySelector("html")
+            if(htmlElement.getAttribute("data-bs-theme") === 'auto') {
+                function updateTheme() {
+                    document.querySelector("html").setAttribute("data-bs-theme",
+                        window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+                }
+
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
+                updateTheme()
+            }
+        })()
+    </script>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                        <h3>Simple monitoring</h3>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    {% if devices %}
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Line</th>
+                                    <th>Squad (name)</th>
+                                    <th>Squad (priority)</th>
+                                    <th>Device (name)</th>
+                                    <th>Device (ip)</th>
+                                    <th>Device (mac)</th>
+                                    <th>Device (hostname)</th>
+                                    <th>Device (availability)</th>
+                                    <th>Device (check date)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for device in devices %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ device.squad.name }}</td>
+                                        <td>{{ device.squad.priority }}</td>
+                                        <td>{{ device.name }}</td>
+                                        <td>{{ device.ip }}</td>
+                                        <td>{{ device.mac }}</td>
+                                        <td>{{ device.hostname }}</td>
+                                        {% if device.is_online %}
+                                            <td>✅</td>
+                                        {% else %}
+                                            <td>⛔</td>
+                                        {% endif %}
+                                        <td>{{ device.check_date }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No devices are available.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 offset-sm-4">
+                    Page created: {{ date }}<br>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</body>
+</html>
