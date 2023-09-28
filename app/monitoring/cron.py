@@ -2,25 +2,25 @@ import os
 import time
 from datetime import datetime
 from django.utils import timezone
-from .models import Squad, Host
+from .models import Squad, Device
 import django
 
-def check_host_is_online(ip):
+def check_device_is_online(ip):
     stream = os.popen("ping -c1 -W1 %s > /dev/null && echo 'Online' || echo 'Offline' | tail -n 1" % ip)
     output = stream.read()
     output = output.strip()
     return output == 'Online'
 
-def check_hosts():
-    hosts = Host.objects.all()
-    for host in hosts:
-        is_host_online = check_host_is_online(host.ip)
+def check_devices():
+    devices = Device.objects.all()
+    for device in devices:
+        is_device_online = check_device_is_online(device.ip)
         message = ''
-        if is_host_online:
-            host.is_online = True
-            host.check_date = timezone.now()
-            host.save()
+        if is_device_online:
+            device.is_online = True
+            device.check_date = timezone.now()
+            device.save()
         else:
-            host.is_online = False
-            host.check_date = timezone.now()
-            host.save()
+            device.is_online = False
+            device.check_date = timezone.now()
+            device.save()
