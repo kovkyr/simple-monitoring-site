@@ -1,3 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Squad, Host
+from datetime import datetime
 
-# Create your views here.
+def index(request):
+    hosts = Host.objects.order_by('-squad__priority', 'squad__name', 'name')
+    context = { "hosts": hosts, "aaa": datetime.now() }
+    return render(request, "monitoring/index.html", context)
