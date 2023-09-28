@@ -40,9 +40,11 @@
             </div>
             <br>
             <div class="container">
+                {% if squads %}
                 {% for squad in squads %}
-                    <h3>{{ squad.name }} <small>(Priority: {{ squad.priority }})</small></h3>
+                    <h3>{{ squad.name }} (Priority: {{ squad.priority }})</h3>
                     <hr>
+                    {% if squad.device_set.all %}
                     <div class="row row-cols-auto">
                         {% for device in squad.device_set.all %}
                             <div class="col text-center" style="padding-bottom: 1em;">
@@ -82,7 +84,13 @@
                         {% endfor %}
                     </div>
                     <br>
+                    {% else %}
+                        <p>No devices are available</p>
+                    {% endif %}
                 {% endfor %}
+                {% else %}
+                    <p>No squads are available</p>
+                {% endif %}
             </div>
             <br>
             <br>
