@@ -67,7 +67,7 @@
                                         {% else %}
                                             <td>⛔ Offline</td>
                                         {% endif %}
-                                        <td>{{ device.check_date }}</td>
+                                        <td>{{ device.check_date|date:'Y.m.d H:i' }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -80,7 +80,7 @@
             <br>
             <div class="row">
                 <div class="col-sm-4 offset-sm-4">
-                    Page created: {{ date }}<br>
+                    Page created: {{ date|date:'Y.m.d H:i' }}<br>
                 </div>
             </div>
             <br>
