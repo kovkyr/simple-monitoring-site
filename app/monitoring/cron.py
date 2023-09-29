@@ -12,7 +12,7 @@ def check_device_is_online(ip):
     return output == 'Online'
 
 def check_devices():
-    devices = Device.objects.all()
+    devices = Device.objects.order_by('-squad__priority', 'squad__name', 'name')
     for device in devices:
         is_device_online = check_device_is_online(device.ip)
         message = ''
