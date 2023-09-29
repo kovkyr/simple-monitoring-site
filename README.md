@@ -1,6 +1,6 @@
 # simple-monitoring-site
 
-Docker with Django 4.2.5 and PostgreSQL 12
+Monitor your devices by icmp echo (ping) grouped by squads.
 
 ### Installation
 
