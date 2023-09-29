@@ -50,6 +50,7 @@
                                     <th>Device (hostname)</th>
                                     <th>Device (availability)</th>
                                     <th>Device (check date)</th>
+                                    <th>Device (description)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,6 +69,7 @@
                                             <td>⛔ Offline</td>
                                         {% endif %}
                                         <td>{{ device.check_date|date:'Y.m.d H:i' }}</td>
+                                        <td>{{ device.description }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

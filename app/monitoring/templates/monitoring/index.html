@@ -64,7 +64,8 @@
                                         {% else %}
                                             ⛔ Offline
                                         {% endif %}<br>
-                                        Check date: {{ device.check_date|date:'Y.m.d H:i' }}
+                                        Check date: {{ device.check_date|date:'Y.m.d H:i' }}<br>
+                                        Description: {{ device.description }}
                                     "						
                                     style="border: 1px solid green; padding: 5px;">
                                         {{ device.name }}<br>
