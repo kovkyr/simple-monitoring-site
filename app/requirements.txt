@@ -1,3 +1,4 @@
 django==4.2.5
 psycopg==3.1.8
 django-crontab==0.7.1
+whitenoise==6.5.0
