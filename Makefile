@@ -17,6 +17,7 @@ help:
 	@echo "  psql-restore                 Restore database"
 	@echo ""
 	@echo "  django-migrate               Migrate database to last release"
+	@echo "  django-shell                 Enter django shell"
 	@echo ""
 	@echo "  shell-python                 Enter python container"
 	@echo "  shell-cron                   Enter cron container"
@@ -32,7 +33,9 @@ docker-create:
 	@docker compose down
 	@docker compose up -d --wait
 	@docker compose exec python /bin/sh -c "python3 /app/manage.py shell -c \"from django.contrib.auth.models import User; User.objects.create_superuser('$(SUPERUSER_NAME)', '$(SUPERUSER_EMAIL)', '$(SUPERUSER_PASSWORD)')\""
-	@docker compose exec python python /app/manage.py collectstatic
+	@if [ -n "$(DEBUG)" ] && [ $(DEBUG) = "False" ]; then \
+		docker compose exec python python /app/manage.py collectstatic --noinput; \
+	fi
 
 docker-delete:
 	@docker compose down
@@ -42,7 +45,9 @@ docker-recreate: docker-delete docker-create
 
 docker-start:
 	@docker compose up -d --wait
-	@docker compose exec python python /app/manage.py collectstatic
+	@if [ -n "$(DEBUG)" ] && [ $(DEBUG) = "False" ]; then \
+		docker compose exec python python /app/manage.py collectstatic --noinput; \
+	fi
 
 docker-stop:
 	@docker compose down
@@ -52,6 +57,9 @@ docker-restart: docker-stop docker-start
 django-migrate:
 	@docker compose exec python /bin/sh -c "python3 /app/manage.py makemigrations"
 	@docker compose exec python /bin/sh -c "python3 /app/manage.py migrate"
+
+django-shell:
+	@docker compose exec python python /app/manage.py shell
 
 psql-backup:
 	@docker compose exec -t psql pg_dump $(DB_NAME) -c -U $(DB_USER) > dumps/db.sql
