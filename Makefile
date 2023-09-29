@@ -28,14 +28,14 @@ docker-create:
 	@mkdir -p ./dumps
 	@docker compose build
 	@docker compose up -d --wait
-	@docker compose exec python /bin/sh -c "python3 /app/manage.py makemigrations"
-	@docker compose exec python /bin/sh -c "python3 /app/manage.py migrate"
+	@docker compose run python /bin/sh -c "python /app/manage.py makemigrations"
+	@docker compose run python /bin/sh -c "python /app/manage.py migrate"
+	@docker compose run python /bin/sh -c "python /app/manage.py shell -c \"from django.contrib.auth.models import User; User.objects.create_superuser('$(SUPERUSER_NAME)', '$(SUPERUSER_EMAIL)', '$(SUPERUSER_PASSWORD)')\""
+	@if [ -n "$(DEBUG)" ] && [ $(DEBUG) = "False" ]; then \
+		docker compose run python python /app/manage.py collectstatic --noinput; \
+	fi
 	@docker compose down
 	@docker compose up -d --wait
-	@docker compose exec python /bin/sh -c "python3 /app/manage.py shell -c \"from django.contrib.auth.models import User; User.objects.create_superuser('$(SUPERUSER_NAME)', '$(SUPERUSER_EMAIL)', '$(SUPERUSER_PASSWORD)')\""
-	@if [ -n "$(DEBUG)" ] && [ $(DEBUG) = "False" ]; then \
-		docker compose exec python python /app/manage.py collectstatic --noinput; \
-	fi
 
 docker-delete:
 	@docker compose down
@@ -44,10 +44,10 @@ docker-delete:
 docker-recreate: docker-delete docker-create
 
 docker-start:
-	@docker compose up -d --wait
 	@if [ -n "$(DEBUG)" ] && [ $(DEBUG) = "False" ]; then \
-		docker compose exec python python /app/manage.py collectstatic --noinput; \
+		docker compose run python python /app/manage.py collectstatic --noinput; \
 	fi
+	@docker compose up -d --wait
 
 docker-stop:
 	@docker compose down
@@ -55,8 +55,8 @@ docker-stop:
 docker-restart: docker-stop docker-start
 
 django-migrate:
-	@docker compose exec python /bin/sh -c "python3 /app/manage.py makemigrations"
-	@docker compose exec python /bin/sh -c "python3 /app/manage.py migrate"
+	@docker compose exec python /bin/sh -c "python /app/manage.py makemigrations"
+	@docker compose exec python /bin/sh -c "python /app/manage.py migrate"
 
 django-shell:
 	@docker compose exec python python /app/manage.py shell
