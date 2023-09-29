@@ -32,6 +32,7 @@ docker-create:
 	@docker compose down
 	@docker compose up -d --wait
 	@docker compose exec python /bin/sh -c "python3 /app/manage.py shell -c \"from django.contrib.auth.models import User; User.objects.create_superuser('$(SUPERUSER_NAME)', '$(SUPERUSER_EMAIL)', '$(SUPERUSER_PASSWORD)')\""
+	@docker compose exec python python /app/manage.py collectstatic
 
 docker-delete:
 	@docker compose down
@@ -41,6 +42,7 @@ docker-recreate: docker-delete docker-create
 
 docker-start:
 	@docker compose up -d --wait
+	@docker compose exec python python /app/manage.py collectstatic
 
 docker-stop:
 	@docker compose down
