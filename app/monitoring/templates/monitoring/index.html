@@ -13,6 +13,7 @@
     <script src="{% static 'monitoring/bootstrap.min.js' %}"></script>
 
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="30">
 
     <script>
         ;(function () {
@@ -66,20 +67,25 @@
                                         {% endif %}<br>
                                         Check date: {{ device.check_date|date:'Y.m.d H:i' }}<br>
                                         Description: {{ device.description }}
-                                    "						
-                                    style="border: 1px solid green; padding: 5px;">
-                                        {{ device.name }}<br>
-                                        {% if device.is_online %}
-                                            ✅ Online
-                                        {% else %}
-                                            ⛔ Offline
-                                        {% endif %}<br>
-                                        <div class="h6">
-                                            <small>
-                                                {{ device.check_date|date:'Y.m.d' }}<br> 
-                                                {{ device.check_date|date:'H:i' }}
-                                            </small>
-                                        </div>
+                                    "
+                                    {% if device.is_online %}
+                                        style="border: 1px solid green; padding: 5px;"
+                                    {% else %}
+                                        style="border: 1px solid red; padding: 5px;"
+                                    {% endif %}
+                                >
+                                    {{ device.name }}<br>
+                                    {% if device.is_online %}
+                                        ✅ Online
+                                    {% else %}
+                                        ⛔ Offline
+                                    {% endif %}<br>
+                                    <div class="h6">
+                                        <small>
+                                            {{ device.check_date|date:'Y.m.d' }}<br>
+                                            {{ device.check_date|date:'H:i' }}
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
